@@ -2,56 +2,63 @@ import java.util.*;
 public class TornToPieces {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		int n = scan.nextInt();
-		Graph graph = new Graph(n, scan);
-
-
-
-	}
-}
-
-class Graph {
-	private Map<Vertex, List<Vertex>> adjVertices;
-	public Graph(int n, Scanner s) {
-		adjVertices = new HashMap<>();
+		HashMap<String, Set<String>> graph = new HashMap<>();
+		int n = Integer.parseInt(scan.nextLine());
+		//intitialize graph
 		for (int i = 0; i < n; i++) {
-			String[] line = s.nextLine().split(" ");
-			adjVertices.putIfAbsent(new Vertex(line[0]), new ArrayList<>());
+			String[] line = scan.nextLine().split(" ");
+			graph.putIfAbsent(line[0], new HashSet<>());
 			for (int j = 1; j < line.length; j++) {
-			adjVertices.putIfAbsent(new Vertex(line[i]), new ArrayList<>());
-			adjVertices.get(line[0]).add(new Vertex(line[i]));
-			adjVertices.get(line[i]).add(new Vertex(line[0]));
+				graph.putIfAbsent(line[j], new HashSet<>());
+				graph.get(line[0]).add(line[j]);
+				graph.get(line[j]).add(line[0]);
 			}
 		}
-	}
-}
-class  Vertex {
-	String label;
-	Vertex(String label) {
-		this.label = label;
-	}
-}
-class BFS {
-	private Map<String, String> backTrack;
-	private String goal;
-	public BFS() {
-		goal = null;
-		backTrack = new HashMap<>();
-	}
-	
-	void search(Graph g, String start, String finish) {
-		Deque<Vertex> q = new ArrayDeque<Vertex>();
-		Set<Vertex> visited = new HashSet<>();
-		q.addLast(new Vertex(start));
+		Set<String> visited = new HashSet<>();
+		String[] last = scan.nextLine().split(" ");
+		String start = last[0];
+		String finish = last[1];
+		boolean found = false;
+		HashMap<String, String> backTrack = new HashMap<>();
+		Deque<String> q = new ArrayDeque<>();
+		q.addLast(start);
+		visited.add(start);
 		while (!q.isEmpty()) {
-			Vertex
+			String curr = q.removeFirst();
+			if (curr.equals(finish)) {
+				found = true;
+				break;
+			}
+			Set<String> nbrs = graph.get(curr);
+			if (nbrs != null) {
+			for (String p : nbrs) {
+				if (!visited.contains(p)) {
+					q.addLast(p);
+					visited.add(p);
+					backTrack.put(p, curr);
+				}
+			}
+		}x
+		}
+		if (!found) {
+			System.out.println("no route found");
+		}
+		else {
+			Deque<String> stack = new ArrayDeque<>();
+			String pointer = finish;
+			String output = "";
+			while (pointer != null) {
+				stack.addFirst(pointer);
+				pointer = backTrack.get(pointer);
+			}
+			while (!stack.isEmpty()) {
+				output +=  stack.removeFirst() + " ";
+			}
+			System.out.println(output);
+
 		}
 
 
+
 	}
-
-
-
 }
-
-	
