@@ -38,7 +38,7 @@ public class TornToPieces {
 					backTrack.put(p, curr);
 				}
 			}
-		}x
+		}
 		}
 		if (!found) {
 			System.out.println("no route found");
@@ -57,8 +57,5 @@ public class TornToPieces {
 			System.out.println(output);
 
 		}
-
-
-
 	}
 }
