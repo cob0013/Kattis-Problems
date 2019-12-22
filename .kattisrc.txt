@@ -1,0 +1,14 @@
+# Please save this file as .kattisrc in your home directory.
+# This file includes a secret token that allows you to log in.
+# DO NOT SHARE IT WITH ANYONE ELSE.
+# If someone gets access to this token, please revoke it by changing your KATTIS password.
+
+[user]
+username: cob0013
+token: 69895f336731d2a2f6ed0101b823d7d08bf957a3f334efe365c9e0a15f42c5cf
+
+[kattis]
+hostname: icpc.kattis.com
+loginurl: https://icpc.kattis.com/login
+submissionurl: https://icpc.kattis.com/submit
+submissionsurl: https://icpc.kattis.com/submissions
