@@ -1,29 +1,37 @@
 
 # r1 * c + c1
-from queue import deque
-def main():
-	r, c = map(int, input().split())
-	grid = []
-	dr = [1, -1, 0, 0]
-	dc = [0, 0, 1, -1]
-	for i in range(r):
-		grid.append(list(map(int, input().split())))
-	dist = [[999999999 for i in range(c + 2)] for i in range(r + 2)]
-	for i in range(r):
-		dist[r][0] = -1
-	q = deque()
-	q.append((0, 0, 0))
-	dist[0][0] = 0
-	while not q.empty():
-		r, c , debth = q.popleft()
-		for i in range(4):
-			nextR = r + dr[i]
-			nextC = c + dc[i]
-		if nextR >= 0 and nextC >= 0 and nextR < r + 2 and nextC < c + 2:
-			nextVal = max(debth, )
+from sys import stdin
+from heapq import heappush, heappop, heapify
 
-		spt[r][c] = True
-		dist[r][c] = debth
+def main():
+	r, c = map(int, stdin.readline().split())
+	pq = []
+	neighbors = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+	visited = set()
+	max_debth = -1
+	grid = []
+	for i in range(r):
+		grid.append(list(map(int, stdin.readline().split())))
+		heappush(pq, ((grid[i][0], i, 0)))
+		visited.add(i * c)
+	while pq:
+		debth, x, y = heappop(pq)
+		max_debth = max(max_debth, debth)
+		if y == c - 1:
+			print(max_debth)
+			return
+		for n in neighbors:
+			iprime = x + n[0]
+			jprime = y + n[1]
+			if iprime < 0 or jprime < 0 or iprime >= r or jprime >= c or iprime * c + jprime  in visited:
+				continue
+			heappush(pq, ((grid[iprime][jprime], iprime, jprime)))
+			visited.add(iprime * c + jprime)
+			
+			
+
+
+
 
 
 	

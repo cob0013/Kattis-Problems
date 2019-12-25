@@ -1,12 +1,14 @@
 def main():
-	unique = set()
 	n = int(input())
-	line = input().split()
-	for i in line:
-		unique.add(int(i))
-	print(n - (n - len(unique)))
+	langs = input().split()
+	dist = {}
+	_min = n
+	for i in range(n):
+		if langs[i] in dist:
+			_min = min(i - dist[langs[i]] , _min)
+		dist[langs[i]] = i
+	print(_min)
 
 if __name__ == '__main__':
 	main()
 
-	##not finished

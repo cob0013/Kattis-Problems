@@ -1,41 +1,36 @@
 import heapq
-
-def dijkstras(graph, s, t, n):
-	mx = 9999999
-	dist = [mx] * 50
-	minHeap = [(s, 0)]
-	while minHeap:
-		city, weight = heapq.heappop(minHeap)
+def dijstras(graph, src, n):
+	mx = 99999999
+	dist = [mx for i in range(n)]
+	pq = [(0, src)]
+	while pq:
+		weight, city = heapq.heappop(pq)
 		if dist[city] == mx:
 			dist[city] = weight
 			for dest in graph[city]:
-					if dist[dest[0]] == mx:
-						heapq.heappush(minHeap, (weight + dest[1], dest[0]))
-
-
-
-
-
+				if dist[dest] == mx:
+					heapq.heappush(pq, (weight + graph[city][dest], dest))
+	return dist
 def main():
 	n, m, f, s, t = map(int, input().split())
-	graph = dict()
-	for i in range(n):
-		graph[i] = []
+	graph = [dict() for i in range(n)]
 	for i in range(m):
-		a, b, c = map(int, input().split())
-		graph[a].append((b, c))
-		graph[b].append((a, c))
+		x, y, z = map(int, input().split())
+		graph[x][y] = z
+		graph[y][x] = z
+	flights = []
 	for i in range(f):
-		u, v = map(int, input().split())
-		if u not in graph:
-			graph[u] = []
-		if v not in graph:
-			graph[v] = []
-		graph[u].append((v, 0))
-		graph[v].append((u, 0))
-		print(graph)
-	dist = dijkstras(graph, s, t, n)
-	# print(dist[t])
+		flights.append(list(map(int, input().split())))
+	distanceTo = dijstras(graph, s, n)
+	distanceFrom = dijstras(graph, t, n)
+	minDistance = distanceTo[t]
+	for flight in flights:
+		minDistance = min(distanceTo[flight[0]] + distanceFrom[flight[1]], minDistance)
+	print(minDistance)
+
+
+
+
 
 
 
