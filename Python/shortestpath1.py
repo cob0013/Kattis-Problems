@@ -1,4 +1,4 @@
-from queue import PriorityQueue
+import heapq
 def main():
 	while True:
 		n, m, q, s = map(int, input().split())
@@ -9,12 +9,11 @@ def main():
 			u, v, w = map(int, input().split())
 			graph[u].append((w, v))
 		# dijkstras
-		pq = PriorityQueue()
+		pq = [(0, s)]
 		visited = set()
-		pq.put((0, s))
 		dist = [-1 for i in range(n)]
-		while not pq.empty():
-			weight, vert = pq.get()
+		while pq:
+			weight, vert = heapq.heappop(pq)
 			if vert in visited:
 				continue
 			visited.add(vert)
@@ -22,7 +21,7 @@ def main():
 			for neighbor in graph[vert]:
 				edgelength, goingto = neighbor
 				if goingto not in visited:
-					pq.put((edgelength + weight, goingto))
+					heapq.heappush(pq, (edgelength + weight, goingto))
 		for i in range(q):
 			destination = int(input())
 			if dist[destination] == -1:
