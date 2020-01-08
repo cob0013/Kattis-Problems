@@ -27,5 +27,5 @@ for i in range(rMax):
 print(count)
 
 
-# code was shit so re wrote cleaner
+# code was bad so re wrote cleaner
 
