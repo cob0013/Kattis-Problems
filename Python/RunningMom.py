@@ -1,6 +1,5 @@
 # not finished
-
-from collections import deque 
+import sys 
 
 def dfs(graph, start, visited):
 	visited.add(start)
@@ -16,27 +15,20 @@ def dfs(graph, start, visited):
 
 
 def main():
-	n = int(input())
+	lines = [i.strip() for i in sys.stdin.readlines()]
+	n = int(lines[0])
 	graph = dict()
-	visited = set()
-	for i in range(n):
-		u, v = input().split()
+	for i in range(1,n + 1):
+		u, v = lines[i].split()
 		if u not in graph:
 			graph[u] = set()
 		if v not in graph:
 			graph[v] = set()
 		graph[u].add(v)
 
-	while True:
-		try:
-			check = input()
-			if dfs(graph, check, visited):
-				print(check, "safe")
-			else:
-				print(check, "trapped")
-		except:
-			return
-		
+	for i in range(n + 1, len(lines)):
+			visited = set()
+			print(lines[i], "safe" if dfs(graph, lines[i], visited) else "trapped") 
 		
 
 
