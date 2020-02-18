@@ -5,6 +5,8 @@ class UnionFind:
         self.n = n
         self.sizes = [1 for i in range(n)]
         self.unions = [i for i in range(n)]
+
+
     def union(self, x, y):
         parentX = self.find(x)
         parentY = self.find(y)
@@ -12,6 +14,8 @@ class UnionFind:
             self.sizes[parentY] += self.sizes[parentX]
             self.sizes[parentX] = self.sizes[parentY]
         self.unions[parentY] = parentX
+
+        
     def find(self, x):
         if self.unions[x] == x:
             return x
