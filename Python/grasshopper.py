@@ -3,16 +3,20 @@ from sys import stdin, stdout
 
 def main():
     while True:
+
         try:
             neighbors = [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (-2, 1), (2, -1)]
             r, c, gr, gc, lr, lc = map(int, stdin.readline().split())
+            count = 0
             q = deque()
             found = False
             q.append((gr, gc, 0))
             visited = set()
             visited.add((gr, gc))
             while q:
+
                 currr, currc, moves = q.popleft()
+                count += 1
                
                 if currr == lr and currc == lc:
                     print(moves)
@@ -26,6 +30,7 @@ def main():
                 		q.append((nextr, nextc, moves + 1))
             if not found:
             	print("impossible")
+            print(count)
         except:
             break
 
