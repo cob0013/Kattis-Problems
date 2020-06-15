@@ -1,16 +1,19 @@
+def lis(s):
+    n = len(s)
+    dp = [1] * n
+    for i in range(1, n):
+        for j in range(i):
+            if ord(s[i]) > ord(s[j]) and dp[i] < dp[j] + 1:
+                dp[i] = dp[j] + 1
+
+    m = 0
+    for i in range(n):
+        m = max(m, dp[i])
+    return m
+
 def main():
-	alph = 'abcdefghijklmnopqrstuvwxyz'
-	line = input()
-	pointer = 0
-	count = 0
-	previous = 0
-	for i in range(len(line)):
-		if alph[pointer] == line[i] and previous < i:
-			previous = i
-			pointer += 1
-			continue
-		count += 1
-	print(count)
+    line = input()
+    print(26 - lis(line))
 
 
 # not finished
