@@ -10,19 +10,16 @@ def find(x, parents):
 def main():
     p, t = map(int, input().split())
     parents = [i for i in range(t)]
-    
+    opinions = [set() for i in range(p)] 
     while True:
         try:    
-           i, j = map(int, input().split())
-           union(i-1, j-1, parents)
+            i, j = map(int, input().split())
+            opinions[i - 1].add(j)
         except:
             break
-
     diff = set()
-    for p in parents:
-        diff.add(find(p, parents))
-
-
+    for o in opinions:
+        diff.add(frozenset(o))
     print(len(diff))
 
 
