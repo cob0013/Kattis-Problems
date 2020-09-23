@@ -9,7 +9,8 @@ def main():
                 line = input()
                 if line == "\n":
                     break
-                students.append(list(map(int, input().split())))
+                for l in map(int, line.split()):
+                    students.append(l)
             except:
                 break
         count = 0
