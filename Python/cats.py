@@ -1,4 +1,4 @@
-INF = 9999999
+from sys import stdin, stdout
 def union(x, y, parents):
     parents[find(x, parents)] = parents[find(y, parents)]
 
@@ -9,37 +9,39 @@ def find(x, parents):
     return parents[x]
 
 def kruskal(graph, c):
-    mincost = 0
+    mst = set()
     graph.sort()
     V = c
     parents = [i for i in range(c)]
     e = 0
     i = 0
-    while e < V - 1:
-        i = i + 1
-        w, u, v = graph[i]
+    for edge in graph:
+        w, u, v = edge
         x = find(u, parents)
         y = find(v, parents)
 
         if x != y:
             e = e + 1
-            mincost += w
+            mst.add((w, u, v))
             union(x, y, parents)
-    return mincost
+    return mst
         
 def main():
-    t = int(input())
+    t = int(stdin.readline())
     for i in range(t):
-        m, c = map(int, input().split())
+        m, c = map(int, stdin.readline().split())
         edges = []
         for i in range(c * (c - 1) // 2):
-            u, v, w = map(int, input().split())
+            u, v, w = map(int, stdin.readline().split())
             edges.append((w, u, v))
         mst = kruskal(edges, c)
-        if (m - mst - c >= 0):
-            print("yes")
+        mincost = 0
+        for edge in mst:
+            mincost += edge[0]
+        if (m - mincost - c >= 0 and c - 1 == len(mst)):
+            stdout.write("yes\n")
         else:
-            print("no")
+            stdout.write("no\n")
 
 
 
